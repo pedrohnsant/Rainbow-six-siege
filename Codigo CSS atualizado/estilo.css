@@ -1,0 +1,778 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Orbitron', sans-serif, 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2b2b2c;
+}
+
+:root {
+  --tamanho-header: 80px;
+  --tamanho-banner: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 3px);
+  --tamanho-simulador: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 4px);
+  --tamanho-login: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 4px);
+  --tamanho-sobrenos: calc(100vh - var(--tamanho-header) - var(--tamanho-footer) - 4px);
+  --tamanho-footer: 65px;
+}
+
+.container {
+  display: flex;
+  width: 90%;
+  margin: auto;
+}
+
+.header {
+  height: var(--tamanho-header);
+  border-bottom: 3px solid rgb(175, 130, 6);
+}
+
+.header .container {
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  position: relative;
+}
+
+.header .container span {
+  color: #f5b942;
+  font-weight: 800;
+}
+
+.logo-central {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 48px;
+  width: auto;
+}
+
+.header a {
+  text-decoration: none;
+  color: #e3b062;
+}
+
+.agora {
+  font-weight: 800;
+}
+
+.navbar {
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  color: rgb(175, 130, 6);
+}
+
+.titulo {
+  color: rgb(175, 130, 6);
+  width: fit-content;
+  font-weight: 500;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+/* BANNER */
+
+.banner {
+  background: linear-gradient(to right, rgba(11, 15, 20, 0.9) 20%, rgba(11, 15, 20, 0) 70%),
+    url('../assets/rainbow-six-siege-27b2k2cr473rb17g.jpg');
+  background-size: 100%;
+  background-position: center 22%;
+  height: 80vh;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 40px;
+  width: 100%;
+  border-bottom: 3px solid rgb(175, 130, 6);
+
+}
+
+.banner .container {
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 5%;
+  margin-top: 0;
+}
+
+
+.banner h1 {
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
+  font-size: 3.5rem;
+  color: white;
+  margin: 0;
+  line-height: 1.1;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+
+.banner p {
+  font-size: 1.2rem;
+  /* Tamanho de leitura confortável */
+  color: rgba(255, 255, 255, 0.8);
+  /* Branco levemente opaco */
+  max-width: 500px;
+  /* Trava o texto para não cobrir os personagens */
+  margin-top: 15px;
+  line-height: 1.5;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.8);
+}
+
+.banner span {
+  color: #f5b942;
+  font-weight: 900;
+}
+
+/*  */
+
+.social {
+  background-color: #2b2b2c;
+  display: flex;
+  min-height: auto;
+  width: 100%;
+  justify-content: center;
+  padding: 50px 0;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  padding: 20px 0
+}
+
+.social .container {
+  flex-direction: column;
+  align-items: column;
+  width: 95%;
+  max-width: 1250px;
+  padding: 2;
+  display: flex;
+}
+
+.intro-text {
+  font-family: 'Poppins', sans-serif;
+
+  max-width: 1450px;
+  /* Evita que as linhas fiquem longas demais em telas grandes */
+  margin: 0 auto 40px;
+  color: #ffffff;
+  line-height: 1.6;
+  /* Melhora o espaçamento entre linhas */
+  font-size: 1.15rem;
+  /* Tamanho de fonte agradável */
+}
+
+.box img {
+  width: 110px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.social .container .boxes {
+  display: grid;
+  justify-content: center;
+  width: 90%;
+  padding: 15px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  align-items: stretch;
+  height: 100%;
+  gap: 30px
+}
+
+.social p {
+  text-align: center;
+}
+
+.box-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  /* Arredondamento agora fica no link */
+  transition: all 0.3s ease;
+  /* Transição movida para o pai */
+
+}
+
+.box-link:hover {
+  transform: translateY(-10px);
+  filter: brightness(1.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  /* cresce para preencher o link 100% */
+  padding: 20px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+}
+
+.box-link:nth-child(1) {
+  background-color: rgb(175, 130, 6);
+}
+
+.box-link:nth-child(2) {
+  background-color: #2b1a3d;
+}
+
+.box-link:nth-child(3) {
+  background-color: #1a2533;
+}
+
+/* FOOTER */
+
+.footer {
+  background-color: #2b2b2c;
+  padding: 30px 0;
+  height: 150px;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  font-size: 15px;
+  border-top: 3px solid rgb(175, 130, 6);
+  font-family: sans-serif;
+}
+
+.footer-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;/
+}
+
+/* ESQUERDA */
+.footer-left {
+  flex: 1;
+  text-align: left;
+}
+
+.footer-left p {
+  color: white;
+  font-size: 15px;
+}
+
+/* MEIO */
+.footer-center {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.links-rapidos {
+  margin-bottom: 8px;
+}
+
+.links-rapidos a {
+  color: #a0a0a0;
+  text-decoration: none;
+  margin: 0 10px;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.links-rapidos a:hover {
+  color: rgb(175, 130, 6);
+}
+
+.ubisoft-text {
+  font-size: 15px;
+  line-height: 1.4;
+  max-width: 950px;
+}
+
+/* DIREITA */
+.footer-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.social-icons {
+  display: flex;
+  gap: 25px;
+}
+
+.social-icons img {
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+.footer .container {
+  justify-content: center;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.footer .container .version {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+.footer h4 {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+/* LOGIN */
+
+.login {
+  height: var(--tamanho-login);
+  background-image: url('https://images.wallpapersden.com/image/download/tom-clancy-s-rainbow-six-siege-hd-gaming-poster_bW5qameUmZqaraWkpJRmbmdlrWZlbWU.jpg');
+  background-size: cover;
+}
+
+.login .container {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.card {
+  width: 50%;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: rgb(175, 130, 6);
+  flex-direction: column;
+  height: fit-content;
+  padding: 20px 0;
+}
+
+.card h2 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.formulario {
+  display: flex;
+  height: 90%;
+  width: 80%;
+  justify-content: space-around;
+  gap: 25px;
+  flex-direction: column;
+
+
+
+}
+
+.formulario span {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.formulario input {
+  border: 2px solid rgb(175, 130, 6);
+  text-align: center;
+  border-radius: 10px;
+  margin: 2;
+}
+
+.formulario select {
+  border: 3px solid rgb(175, 130, 6);
+  background-color: white;
+  color: gray;
+  height: 36px;
+  text-align: center;
+  border-radius: 10px;
+  margin: 0;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 5px 0;
+}
+
+.botao {
+  cursor: pointer;
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #fff;
+  background-color: rgb(175, 130, 6);
+  width: 150px;
+  padding: 10px 0;
+  display: flex;
+  align-self: center;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-div {
+  width: 100%;
+  /* Ocupa a largura total para o margin funcionar bem */
+  display: none;
+  /* Mantém escondido até o JS chamar */
+  justify-content: center;
+  /* Centraliza o GIF horizontalmente */
+  margin-top: 30px;
+  /* DISTÂNCIA DO BOTÃO: Aumente este valor se quiser mais longe */
+  margin-bottom: 10px;
+}
+
+#loading-gif {
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  /* Tenta remover fundos indesejados */
+}
+
+#div_erros_login {
+  display: none
+}
+
+/* FORMULARIO */
+
+.alerta_erro {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card_erro {
+  display: none;
+  background-color: #fff;
+  color: black;
+  width: 230px;
+  position: fixed;
+  border-radius: 4px;
+  border: rgb(175, 130, 6) 3px solid;
+  padding: 10px;
+  margin-right: 10%;
+}
+
+.card_erro #mensagem_erro {
+  font-weight: 500;
+  font-size: 20px;
+}
+
+.formulario .tipo_campo {
+  font-size: 20px;
+  font-weight: 600 !important;
+}
+
+.formulario {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  margin-bottom: 10px;
+  border: 2px solid #32b9cd;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.btn {
+  font-family: "Barlow", sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 20px;
+  color: white;
+  background-color: rgb(175, 130, 6);
+  width: fit-content;
+  min-width: 150px;
+  align-self: center;
+  margin-top: 5px;
+  display: flex;
+  /* Transforma o interior do botão em flex */
+  justify-content: center;
+  /* Centraliza na horizontal */
+  align-items: center;
+  /* Centraliza na vertical */
+  text-align: center;
+}
+
+
+
+/* SIMULADOR */
+
+.simulador {
+  color: white;
+}
+
+.simulador .container {
+  flex-direction: column;
+  overflow: scroll;
+  height: var(--tamanho-simulador);
+}
+
+/* ALERTA */
+
+#alerta {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+
+.mensagem-alarme {
+  background-color: white;
+  border-radius: 5px;
+  width: 300px;
+  height: 80px;
+  margin: 10px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mensagem-alarme h3 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.mensagem-alarme .informacao {
+  width: 66%;
+}
+
+.alarme-sino {
+  width: 48px;
+  height: 48px;
+  animation-name: bell;
+  animation-duration: 4s;
+  background-image: url('https://cdn-icons-png.flaticon.com/512/1157/1157000.png');
+  background-size: cover;
+  animation-iteration-count: infinite;
+}
+
+@keyframes bell {
+  0% {
+    transform: rotate(25deg)
+  }
+
+  25% {
+    transform: rotate(-25deg)
+  }
+
+  50% {
+    transform: rotate(25deg)
+  }
+
+  75% {
+    transform: rotate(-25deg)
+  }
+
+  100% {
+    transform: rotate(25deg)
+  }
+}
+
+
+/* SOBRE NOS */
+
+.sobretexto {
+  background-color: #1f1f1f;
+  padding: 60px 0;
+  color: #eaeaea;
+}
+
+.sobretexto .container {
+  flex-direction: column;
+  max-width: 900px;
+  margin: auto;
+}
+
+.sobretexto h2 {
+  font-size: 32px;
+  color: #e3b062;
+  margin-bottom: 25px;
+  border-left: 5px solid #e3b062;
+  padding-left: 10px;
+  font-weight: 700;
+}
+
+.sobretexto p {
+  font-size: 18px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #d1d1d1;
+}
+
+.sobretexto b {
+  color: #ffffff;
+}
+
+.sobretexto p:last-child {
+  font-size: 20px;
+  color: #e3b062;
+}
+
+/* QUIZ 
+
+/* Variáveis de cores */
+:root {
+  --primary-brand-color: rgb(175, 130, 6);
+  --secondary-brand-color: rgb(175, 130, 6);
+  --success-light: #9dd3ba;
+  --success-dark: #095c36;
+  --danger-light: #f0c1c6;
+  --danger-dark: #990c19;
+  --new-white: #E8E8E8;
+  --quiz-bg: #1a1c1e;
+  --card-bg: #2a2d31;
+}
+
+/* Área principal do Quiz  */
+.quiz-wrapper {
+  display: flex;
+  flex-direction: column;
+  /* Alinha os itens em coluna */
+  justify-content: center;
+  /* CENTRALIZA NA VERTICAL */
+  align-items: center;
+  /* CENTRALIZA NA HORIZONTAL */
+  min-height: 80vh;
+  /* Define uma altura mínima para ter espaço de sobra */
+  padding: 40px 20px;
+}
+
+#pontuacaoEJogo {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  /* Distância entre as boxes */
+  width: 100%;
+  max-width: 800px;
+  align-items: center;
+}
+
+/* Cards (Boxes) do Quiz */
+.quiz-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 30px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  color: var(--new-white);
+  display: none;
+  /* Escondido até iniciar */
+}
+
+.border-primary {
+  border-top: 6px solid var(--primary-brand-color);
+}
+
+.border-secondary {
+  border-top: 6px solid var(--secondary-brand-color);
+}
+
+.quiz-pergunta {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 20px 0;
+  color: #fff;
+}
+
+/* Opções de Resposta */
+.quiz-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.quiz-option-label {
+  background: #363b41;
+  padding: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  font-size: 1.1rem;
+  transition: 0.2s;
+  border: 1px solid transparent;
+}
+
+.quiz-option-label:hover {
+  background: #444b52;
+}
+
+/* Botões */
+.quiz-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+button {
+  font-weight: bold;
+  padding: 12px 25px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+#btnIniciarQuiz {
+  background: var(--primary-brand-color);
+  color: white;
+  font-size: 1.5rem;
+  display: block;
+  margin-bottom: 20px;
+}
+
+#btnSubmeter {
+  background: var(--secondary-brand-color);
+  color: white;
+}
+
+#btnProx,
+#btnTentarNovamente {
+  background: #555;
+  color: white;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Cores de Feedback */
+.text-success-with-bg {
+  background-color: var(--success-light) !important;
+  color: var(--success-dark) !important;
+}
+
+.text-danger-with-bg {
+  background-color: var(--danger-light) !important;
+  color: var(--danger-dark) !important;
+}
+
+/* AGORA CSS DA DASHBOARD*/
