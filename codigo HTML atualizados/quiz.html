@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>R6 Fórum | Página Inicial</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="icon" href="./assets/logor6.png">
+    <link rel="preconnect" href="js/sessao.js">
+</head>
+<body onload="onloadEsconder()"></body>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h2 class="titulo"> <span>R6 Fórum</span> <br> <b>Sua performance não é sorte, são dados! </b></h2>
+            <img class="logo-central" src="./assets/logor6.png">
+            <ul class="navbar">
+                <li class="agora">
+                    <a href="./index.html">Inicio</a>
+                </li>
+                <li>
+                    <a href="simulador.html">Calculadora</a>
+                </li>
+                <li>|</li>
+                <li>
+                    <a href="login.html">Login</a>
+                </li>
+                <li>
+                    <a href="cadastro.html">Cadastro</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <body onload="onloadEsconder()">
+        <main class="quiz-wrapper">
+        <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+        <div id="pontuacaoEJogo">
+            <!-- CAIXA DE PONTUAÇÃO -->
+            <div id="pontuacao" class="quiz-card border-primary">
+                <div id="pontuacaoDuranteJogo">
+                    <p>Acertos: <span id="spanCertas">0</span></p>
+                    <p>Erros: <span id="spanErradas">0</span></p>
+                </div>
+                <div id="pontuacaoFinalJogo" style="display: none;">
+                    <h3>Resultado Final: <span id="spanPontuacaoFinal">0</span></h3>
+                    <p id="msgFinal"></p>
+                </div>
+            </div>
+
+            <!-- CAIXA DO JOGO -->
+            <div id="jogo" class="quiz-card border-secondary">
+                <div id="infoQuestao">
+                    <span>Questão <span id="spanNumeroDaQuestaoAtual">1</span> de <span id="qtdQuestoes">0</span></span>
+                </div>
+
+                <div class="quiz-pergunta" id="spanQuestaoExibida">Carregando pergunta...</div>
+
+                <div class="quiz-opcoes">
+                    <label class="quiz-option-label" id="labelOpcaoUm">
+                        <input type="radio" name="option" value="alternativaA" id="optA"> <span id="textA"></span>
+                    </label>
+                    <label class="quiz-option-label" id="labelOpcaoDois">
+                        <input type="radio" name="option" value="alternativaB" id="optB"> <span id="textB"></span>
+                    </label>
+                    <label class="quiz-option-label" id="labelOpcaoTres">
+                        <input type="radio" name="option" value="alternativaC" id="optC"> <span id="textC"></span>
+                    </label>
+                    <label class="quiz-option-label" id="labelOpcaoFour">
+                        <input type="radio" name="option" value="alternativaD" id="optD"> <span id="textD"></span>
+                    </label>
+                </div>
+
+                <div class="quiz-actions">
+                    <button onclick="submeter()" id="btnSubmeter">Confirmar Resposta</button>
+                    <button onclick="avancar()" id="btnProx" disabled>Próxima</button>
+                    <button onclick="tentarNovamente()" id="btnTentarNovamente" disabled>Reiniciar</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+
+    <script>
+        const listaDeQuestoes = [
+            {
+                pergunta: "Quantos operadores de defesa existem?",
+                alternativaA: "31", alternativaB: "33", alternativaC: "35", alternativaD: "34",
+                alternativaCorreta: "alternativaD"
+            },
+            {
+                pergunta: "Qual o nome do ambiente azul, no Oregon, no andar mais inferior?",
+                alternativaA: "Freezer", alternativaB: "Salinha da mira", alternativaC: "Cinza", alternativaD: "Bunker",
+                alternativaCorreta: "alternativaA"
+            },
+            {
+                pergunta: "A operadora Ash REPRESENTA qual país e unidade?",
+                alternativaA: "Polônia e SWAT", alternativaB: "Israel e FBI", alternativaC: "EUA e SWAT", alternativaD: "EUA e FBI",
+                alternativaCorreta: "alternativaC"
+            },
+            {
+                pergunta: "Quem ganhou o SIX INVITATIONAL de 2021?",
+                alternativaA: "NIP", alternativaB: "Team Liquid", alternativaC: "Cloud9", alternativaD: "MIBR",
+                alternativaCorreta: "alternativaA"
+            },
+            {
+                pergunta: "O cabo de arma 'Vertical' faz com que:",
+                alternativaA: "Mire mais lento, ajude no recuo vertical", alternativaB: "Mire mais lento, ajude no horizontal", alternativaC: "Mira mais rápido", alternativaD: "Apenas recuo horizontal",
+                alternativaCorreta: "alternativaA"
+            }
+        ];
+
+        let numeroDaQuestaoAtual = 0;
+        let pontuacaoFinal = 0;
+        let certas = 0;
+        let erradas = 0;
+        let quantidadeDeQuestoes = listaDeQuestoes.length;
+
+        function iniciarQuiz() {
+            document.getElementById('btnIniciarQuiz').style.display = "none";
+            document.getElementById('pontuacao').style.display = "block";
+            document.getElementById('jogo').style.display = "block";
+            document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes;
+            preencherHTMLcomQuestaoAtual(0);
+        }
+
+        function preencherHTMLcomQuestaoAtual(index) {
+            habilitarAlternativas(true);
+            const questaoAtual = listaDeQuestoes[index];
+            document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = index + 1;
+            document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+            document.getElementById("textA").innerHTML = questaoAtual.alternativaA;
+            document.getElementById("textB").innerHTML = questaoAtual.alternativaB;
+            document.getElementById("textC").innerHTML = questaoAtual.alternativaC;
+            document.getElementById("textD").innerHTML = questaoAtual.alternativaD;
+            
+            btnSubmeter.disabled = false;
+            btnProx.disabled = true;
+        }
+
+        function submeter() {
+            const options = document.getElementsByName("option");
+            let selecionada = Array.from(options).find(opt => opt.checked);
+
+            if (!selecionada) {
+                alert("Escolha uma opção!");
+                return;
+            }
+
+            habilitarAlternativas(false);
+            checarResposta(selecionada.value);
+            btnSubmeter.disabled = true;
+            btnProx.disabled = false;
+        }
+
+        function checarResposta(valorSelecionado) {
+            const correta = listaDeQuestoes[numeroDaQuestaoAtual].alternativaCorreta;
+            const labels = {
+                'alternativaA': 'labelOpcaoUm',
+                'alternativaB': 'labelOpcaoDois',
+                'alternativaC': 'labelOpcaoTres',
+                'alternativaD': 'labelOpcaoFour'
+            };
+
+            if (valorSelecionado === correta) {
+                document.getElementById(labels[valorSelecionado]).classList.add("text-success-with-bg");
+                certas++;
+                pontuacaoFinal++;
+            } else {
+                document.getElementById(labels[valorSelecionado]).classList.add("text-danger-with-bg");
+                document.getElementById(labels[correta]).classList.add("text-success-with-bg");
+                erradas++;
+            }
+
+            document.getElementById("spanCertas").innerHTML = certas;
+            document.getElementById("spanErradas").innerHTML = erradas;
+        }
+
+        function avancar() {
+            limparCores();
+            desmarcarRadioButtons();
+            numeroDaQuestaoAtual++;
+
+            if (numeroDaQuestaoAtual < quantidadeDeQuestoes) {
+                preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual);
+            } else {
+                finalizarJogo();
+            }
+        }
+
+        function habilitarAlternativas(status) {
+            const options = document.getElementsByName("option");
+            options.forEach(opt => opt.disabled = !status);
+        }
+
+        function limparCores() {
+            const ids = ['labelOpcaoUm', 'labelOpcaoDois', 'labelOpcaoTres', 'labelOpcaoFour'];
+            ids.forEach(id => {
+                document.getElementById(id).classList.remove("text-success-with-bg", "text-danger-with-bg");
+            });
+        }
+
+        function desmarcarRadioButtons() {
+            document.getElementsByName("option").forEach(opt => opt.checked = false);
+        }
+
+        function finalizarJogo() {
+            document.getElementById('pontuacaoFinalJogo').style.display = "block";
+            document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal;
+            
+            let perc = pontuacaoFinal / quantidadeDeQuestoes;
+            let msg = perc >= 0.9 ? "Uau! Tá querendo jogar na Liquid?" : 
+                      perc > 0.3 ? "Boa! Saiu do Bronze, hein?" : "Melhore nessas calls!";
+            
+            document.getElementById('msgFinal').innerHTML = msg + ` (${Math.round(perc*100)}% de acerto)`;
+            btnProx.disabled = true;
+            btnTentarNovamente.disabled = false;
+        }
+
+        function tentarNovamente() {
+            window.location.reload();
+        }
+    </script>
+
+
+<div class="footer">
+    <div class="container footer-layout">
+        <div class="footer-left">
+            <p>2026 &copy; R6 Fórum. Todos os direitos reservados.</p>
+        </div>
+
+        <div class="footer-center">
+            <p class="ubisoft-text">
+                Rainbow Six: Siege é uma marca registrada da Ubisoft. As marcas comerciais são propriedade de seus
+                respectivos proprietários. Materiais de jogo copyright Ubisoft. A Ubisoft não endossou e não é
+                responsável por este site ou seu conteúdo.
+            </p>
+            <div class="links-rapidos">
+
+                <a href="sobrenos.html">Sobre nós</a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+            <div class="social-icons">
+                <img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Instagram">
+                <img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Discord">
+            </div>
+        </div>
+    </div>
+</div>
+
+</html>
