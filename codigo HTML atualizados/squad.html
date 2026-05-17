@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>R6 Fórum | Gerador de squad</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="./css/estilo.css">
+    <link rel="icon" href="./assets/logor6.png">
+    <link rel="preconnect" href="js/sessao.js">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <h2 class="titulo"> <span>R6 Fórum</span> <br> <b>Sua performance não é sorte, são dados! </b></h2>
+            <img class="logo-central" src="assets/logor6.png" alt="">
+            <ul class="navbar">
+                <li><a href="./index.html">Inicio</a></li>
+                <li><a href="guia.html">Guia de mapas</a></li>
+                <li>|</li>
+                <li><a href="./login.html">Login</a></li>
+                <li><a href="./cadastro.html">Cadastro</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-container">
+        <h1 class="titulo-pagina">Gerador de Squad Perfeito</h1>
+        <p class="subtitulo">Monte uma composição equilibrada e pare de perder partidas na seleção de agentes.</p>
+
+        <div class="botoes-wrapper">
+            <button class="btn-tatico btn-ataque" onclick="gerarSquad('ataque')">Estratégia de Ataque</button>
+            <button class="btn-tatico btn-defesa" onclick="gerarSquad('defesa')">Estratégia de Defesa</button>
+        </div>
+
+        <div class="squad-grid" id="squad_container">
+            <p style="color: #555; font-size: 18px; font-style: italic; margin-top: 40px;">
+                Aguardando comando... Selecione Ataque ou Defesa para alinhar o time.
+            </p>
+        </div>
+
+        <br>
+        <a href="dashboard.html" class="voltar-link">← Ir para a Dashboard de Performance</a>
+    </div>
+
+    <script>
+
+        var hardBreachers = [
+            { nome: "Thermite", gadget: "Carga Exotérmica BRIMSTONE" },
+            { nome: "Hibana", gadget: "Lançador X-KAIROS" },
+            { nome: "Ace", gadget: "Dispositivo SELMA" },
+            { nome: "Maverick", gadget: "Maçarico Breacher" }
+        ];
+
+        var antiEletronicos = [
+            { nome: "Thatcher", gadget: "Granada de PEM EMP" },
+            { nome: "Twitch", gadget: "Drone de Choque Eletro" },
+            { nome: "IQ", gadget: "Detector Eletrônico RED" },
+            { nome: "Flores", gadget: "Drone Explosivo RCE-RATERO" }
+        ];
+
+        var entryFraggers = [
+            { nome: "Ash", gadget: "Munição de Demolição CREM" },
+            { nome: "Zofia", gadget: "Lançador KS79 LIFELINE" },
+            { nome: "Buck", gadget: "Chave Mestra (Escopeta Sub)" },
+            { nome: "Iana", gadget: "Replicador Holográfico" }
+        ];
+
+        var suportesAtaque = [
+            { nome: "Gridlock", gadget: "Espinhos Trax" },
+            { nome: "Nomad", gadget: "Lançador de Airjab" },
+            { nome: "Montagne", gadget: "Escudo Extensível" },
+            { nome: "Dokkaebi", gadget: "Bomba Lógica Hacking" }
+        ];
+
+        var antiBombas = [
+            { nome: "Smoke", gadget: "Granada de Gás Remota" },
+            { nome: "Mute", gadget: "Disruptor de Sinal" },
+            { nome: "Kapkan", gadget: "Dispositivo de Bloqueio EDD" },
+            { nome: "Goyo", gadget: "Recipiente Volcán" }
+        ];
+
+        var antiInformacao = [
+            { nome: "Jäger", gadget: "Defesa Ativa ADS" },
+            { nome: "Wamai", gadget: "Sistema de Ímã Mag-NET" },
+            { nome: "Bandit", gadget: "Fio de Choque" },
+            { nome: "Kaid", gadget: "Eletrogarra Rtila" }
+        ];
+
+        var anchors = [
+            { nome: "Mira", gadget: "Espelho Negro" },
+            { nome: "Doc", gadget: "Pistola Estimulante" },
+            { nome: "Rook", gadget: "Placas de Blindagem" },
+            { nome: "Maestro", gadget: "Olho Mau (Laser)" }
+        ];
+
+        var roamers = [
+            { nome: "Caveira", gadget: "Passo Silencioso / Interrogar" },
+            { nome: "Vigil", gadget: "Manto de Renderização" },
+            { nome: "Alibi", gadget: "Holograma Prisma" },
+            { nome: "Mozzie", gadget: "Lançador Questor de Drones" }
+        ];
+
+        function gerarSquad(lado) {
+            var container = document.getElementById("squad_container");
+            container.innerHTML = "";
+
+            var timeSorteado = [];
+
+            if (lado == 'ataque') {
+                timeSorteado.push({ funcao: "Hard Breacher", op: sortearFiltro(hardBreachers) });
+                timeSorteado.push({ funcao: "Anti-Eletrônico", op: sortearFiltro(antiEletronicos) });
+                timeSorteado.push({ funcao: "Entry Fragger", op: sortearFiltro(entryFraggers) });
+                timeSorteado.push({ funcao: "Suporte / Flank", op: sortearFiltro(suportesAtaque) });
+
+                var segundoSuporte = sortearFiltro(suportesAtaque);
+                while (segundoSuporte.nome == timeSorteado[3].op.nome) {
+                    segundoSuporte = sortearFiltro(suportesAtaque);
+                }
+                timeSorteado.push({ funcao: "Suporte / Info", op: segundoSuporte });
+
+            } else {
+                timeSorteado.push({ funcao: "Anti-Avanço", op: sortearFiltro(antiBombas) });
+                timeSorteado.push({ funcao: "Anti-Utilitário", op: sortearFiltro(antiInformacao) });
+                timeSorteado.push({ funcao: "Anchor / Âncora", op: sortearFiltro(anchors) });
+                timeSorteado.push({ funcao: "Roamer / Caçador", op: sortearFiltro(roamers) });
+
+                var segundoRoamer = sortearFiltro(roamers);
+                while (segundoRoamer.nome == timeSorteado[3].op.nome) {
+                    segundoRoamer = sortearFiltro(roamers);
+                }
+                timeSorteado.push({ funcao: "Roamer / Suporte", op: segundoRoamer });
+            }
+
+            var corBorda = lado == 'ataque' ? 'var(--r6-blue)' : 'var(--r6-gold)';
+
+            for (var i = 0; i < timeSorteado.length; i++) {
+                var slot = timeSorteado[i];
+                container.innerHTML += `
+                <div class="op-card" style="border-left: 4px solid ${corBorda}">
+                    <span class="op-funcao">${slot.funcao}</span>
+                    <h3 class="op-nome">${slot.op.nome}</h3>
+                    <p class="op-gadget">${slot.op.gadget}</p>
+                </div>
+            `;
+            }
+        }
+
+        function sortearFiltro(lista) {
+            var indexAleatorio = Math.floor(Math.random() * lista.length);
+            return lista[indexAleatorio];
+        }
+    </script>
+</body>
+
+</html>
+
+<div class="footer">
+    <div class="container footer-layout">
+        <div class="footer-left">
+            <p>2026 &copy; R6 Fórum. Todos os direitos reservados.</p>
+        </div>
+
+        <div class="footer-center">
+            <p class="ubisoft-text">
+                Rainbow Six: Siege é uma marca registrada da Ubisoft. As marcas comerciais são propriedade de seus
+                respectivos
+                proprietários. Materiais de jogo copyright Ubisoft. A Ubisoft não endossou e não é responsável por este
+                site
+                ou seu conteúdo.
+            </p>
+            <div class="links-rapidos">
+
+                <a href="sobrenos.html">Sobre nós</a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+            <div class="social-icons">
+                <a href="https://discord.gg/qZBNemHW " ><img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Discord" ></a> 
+         <a href="https://www.instagram.com/r6forum/?utm_source=ig_web_button_share_sheet"><img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Instagram"></a>
+            </div>
+        </div>
+    </div>
+</div>

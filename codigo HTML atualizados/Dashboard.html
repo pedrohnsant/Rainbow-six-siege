@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>R6 Fórum | Dashboard</title>
+
+   
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="./js/sessao.js"></script>
+
+  <link rel="stylesheet" href="./css/estilo.css" />
+  <link rel="icon" href="assets/logor6.png" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+</head>
+
+<body onload="validarSessao(); exibirDashboard(0, 0); carregarHistoricoMensal();">
+
+  <div class="header">
+    <div class="container">
+      <h2 class="titulo"> <span>R6 Fórum</span> <br> <b>Sua performance não é sorte, são dados! </b></h2>
+      <img class="logo-central" src="assets/logor6.png" alt="">
+      <ul class="navbar">
+        <li><a href="./index.html">Inicio</a></li>
+        <li><a href="guia.html">Guia de mapas</a></li>
+        <li>|</li>
+        <li><a href="./login.html">Login</a></li>
+        <li><a href="./cadastro.html">Cadastro</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="saudacao-container">
+    <div class="container">
+      <div class="perfil-info">
+        <span class="detalhe-amarelo"></span>
+        <p>Olá operador, <b id="b_usuario">VAMOS CALCULAR!</b> </p>
+      </div>
+    </div>
+    <a href="#" onclick="deslogar()"
+      style="color: #ff3333; text-decoration: none; font-weight: bold; font-family: 'Segoe UI', sans-serif; font-size: 14px; margin-left: 20px; text-transform: uppercase; letter-spacing: 1px;">
+      [ Sair da Conta ]
+    </a>
+  </div>
+
+  <div class="simulador">
+    <div class="container">
+      <div class="simulador-titulo-bloco">
+        <h2>Dashboard de  <br><span>Win Rate</span></h2>
+      </div>
+
+      <div class="card-simulador">
+        <p>Total de partidas jogadas:</p>
+        <input type="number" id="input_total" placeholder="Ex: 100">
+
+        <p>Total de Partidas Vencidas:</p>
+        <input type="number" id="input_vitorias" placeholder="Ex: 50">
+
+        <button onclick="calcularWinRate()">Calcular Performance</button>
+
+        <button id="btn_salvar" onclick="salvarResultado()"
+          style="display: none; background-color: #4caf50; margin-top: 10px;">
+          Salvar no Histórico
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-container">
+    <h2 class="titulo-dash">Dashboard de Performance mensal</h2>
+
+    <div class="kpi-wrapper">
+      <div class="kpi-card">
+        <h3>Partidas Perdidas</h3>
+        <span id="kpi_partidas">0</span>
+      </div>
+      <div class="kpi-card">
+        <h3>Status de Performance</h3>
+        <span id="kpi_aviso">Aguardando dados...</span>
+      </div>
+    </div>
+
+    <div class="graph-area">
+      <div class="graph-container">
+        <h3>Distribuição de Win Rate (%)</h3>
+        <div style="height: 300px;">
+          <canvas id="grafico_pizza"></canvas>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+  <div class="secao-historico" style="margin: 40px auto; padding: 20px; max-width: 1200px; box-sizing: border-box;">
+    <h3 style="color: var(--r6-gold); text-transform: uppercase; letter-spacing: 1px; font-family: 'Segoe UI', sans-serif; margin-bottom: 15px; border-left: 4px solid var(--r6-gold); padding-left: 10px;">
+        Histórico de Performance Mensal
+    </h3>
+    
+    <table style="width: 100%; border-collapse: collapse; background-color: #1a1a1a; text-align: center; border: 1px solid #2a2a2a;">
+        <thead>
+            <tr style="background-color: #252525; color: #fff; font-weight: bold; text-transform: uppercase; font-size: 12px; font-family: 'Segoe UI', sans-serif;">
+                <th style="padding: 15px; border: 1px solid #2a2a2a;">Mês / Ano</th>
+                <th style="padding: 15px; border: 1px solid #2a2a2a;">Total Vitórias</th>
+                <th style="padding: 15px; border: 1px solid #2a2a2a;">Total Derrotas</th>
+                <th style="padding: 15px; border: 1px solid #2a2a2a;">Média Win Rate</th>
+            </tr>
+        </thead>
+        <tbody id="tabela_historico_corpo">
+            <tr>
+                <td colspan="4" style="padding: 20px; color: #888; font-family: 'Segoe UI', sans-serif; font-size: 14px;">
+                    Carregando histórico do banco de dados...
+                </td>
+            </tr>
+        </tbody>
+    </table>
+  </div>
+</body>
+  <!-- 4. FOOTER -->
+  <div class="footer">
+    <div class="container footer-layout">
+      <div class="footer-left">
+        <p>2026 &copy; R6 Fórum. Todos os direitos reservados.</p>
+      </div>
+      <div class="footer-center">
+        <p class="ubisoft-text">
+          Rainbow Six: Siege é uma marca registrada da Ubisoft. As marcas comerciais são propriedade de seus respectivos
+          proprietários. Materiais de jogo copyright Ubisoft.
+        </p>
+        <div class="links-rapidos">
+          <a href="sobrenos.html">Sobre nós</a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="social-icons">
+          <a href="https://discord.gg/qZBNemHW " ><img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Discord" ></a> 
+         <a href="https://www.instagram.com/r6forum/?utm_source=ig_web_button_share_sheet"><img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var meuGrafico;
+
+    function calcularWinRate() {
+      var totalPartidas = Number(input_total.value);
+      var vitorias = Number(input_vitorias.value);
+
+      if (totalPartidas <= 0 || input_total.value == "" || input_vitorias.value == "") {
+        alert("Insira valores válidos para o total de partidas!");
+        return;
+      }
+      if (vitorias > totalPartidas) {
+        alert("O número de vitórias não pode ser maior que o total de partidas!");
+        return;
+      }
+
+      document.getElementById("btn_salvar").style.display = "block";
+      exibirDashboard(vitorias, totalPartidas);
+    }
+
+    function exibirDashboard(vitorias, total) {
+      var derrotas = total - vitorias;
+      var pctVitoria = total > 0 ? ((vitorias / total) * 100).toFixed(1) : 0;
+      var pctDerrota = total > 0 ? (100 - pctVitoria).toFixed(1) : 100;
+
+      document.getElementById('kpi_partidas').innerHTML = derrotas;
+      var aviso = document.getElementById('kpi_aviso');
+
+      if (total == 0) {
+        aviso.innerHTML = "Aguardando dados...";
+        aviso.style.color = "#ffaa00";
+      } else if (vitorias > (total / 2)) {
+        aviso.innerHTML = "Bom Trabalho!";
+        aviso.style.color = "#4caf50";
+      } else if (vitorias == (total / 2)) {
+        aviso.innerHTML = "Atenção!";
+        aviso.style.color = "#ffeb3b";
+      } else {
+        aviso.innerHTML = "Precisa Melhorar!";
+        aviso.style.color = "#f44336";
+      }
+
+      var ctx = document.getElementById('grafico_pizza').getContext('2d');
+
+      if (meuGrafico) {
+        meuGrafico.destroy();
+      }
+
+      meuGrafico = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Vitórias (%)', 'Derrotas (%)'],
+          datasets: [{
+            data: [pctVitoria, pctDerrota],
+            backgroundColor: ['#2196f3', '#f44336'],
+            borderColor: '#1e1e1e',
+            borderWidth: 2
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: 'bottom',
+              labels: { color: 'white', font: { size: 14 } }
+            }
+          }
+        }
+      });
+    }
+
+    // --- FUNÇÃO PARA SALVAR NO BANCO DE DADOS ---
+    function salvarResultado() {
+      var idUsuario = sessionStorage.ID_USUARIO;
+      var vits = Number(input_vitorias.value);
+      var total = Number(input_total.value);
+      var ders = total - vits;
+
+      var pctVitoria = ((vits / total) * 100).toFixed(2);
+      var pctDerrota = (100 - pctVitoria).toFixed(2);
+
+      if (idUsuario == undefined) {
+        alert("Erro: Usuário não identificado. Faça login novamente.");
+        return;
+      }
+
+      fetch("/dashboard/salvar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          vitoriasServer: vits,
+          derrotasServer: ders,
+          pctVitoriaServer: pctVitoria,
+          pctDerrotaServer: pctDerrota,
+          idUsuarioServer: idUsuario
+        })
+      }).then(function (resposta) {
+        if (resposta.ok) {
+          alert("Dados salvos com sucesso!");
+          
+          // AJUSTADO: Recarrega a tabela na hora que salva um novo resultado
+          carregarHistoricoMensal(); 
+        } else {
+          alert("Erro ao tentar salvar os dados.");
+        }
+      }).catch(function (erro) {
+        console.log(`#ERRO: ${erro}`);
+      });
+    }
+
+    // --- ADICIONADO: FUNÇÃO PARA PUXAR O HISTÓRICO MENSAL DO BANCO ---
+    function carregarHistoricoMensal() {
+      var idUsuario = sessionStorage.ID_USUARIO;
+
+      if (!idUsuario) return;
+
+      fetch(`/dashboard/mensal/${idUsuario}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(function (resposta) {
+        if (resposta.ok) {
+          if (resposta.status == 204) {
+            document.getElementById("tabela_historico_corpo").innerHTML = `
+              <tr><td colspan="4" style="padding: 20px; color: #888; font-family: 'Segoe UI', sans-serif;">Você ainda não possui dados no histórico.</td></tr>
+            `;
+            return;
+          }
+
+          resposta.json().then(function (historico) {
+            var tabelaCorpo = document.getElementById("tabela_historico_corpo");
+            tabelaCorpo.innerHTML = ""; 
+
+            for (var i = 0; i < historico.length; i++) {
+              var linhaAtual = historico[i];
+              var mesesTexto = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+              var nomeMes = mesesTexto[linhaAtual.mes_numero - 1];
+
+              tabelaCorpo.innerHTML += `
+                <tr style="border-bottom: 1px solid #2a2a2a; font-family: 'Segoe UI', sans-serif; font-size: 14px;">
+                  <td style="padding: 15px; color: #fff; font-weight: bold;">${nomeMes} / ${linhaAtual.mes_ano.split('/')[1]}</td>
+                  <td style="padding: 15px; color: #2196f3; font-weight: bold;">${linhaAtual.total_vitorias}</td>
+                  <td style="padding: 15px; color: #f44336; font-weight: bold;">${linhaAtual.total_derrotas}</td>
+                  <td style="padding: 15px; color: #ffaa00; font-weight: bold;">${linhaAtual.media_winrate}%</td>
+                </tr>
+              `;
+            }
+          });
+        } else {
+          console.error("Erro ao obter histórico do banco.");
+        }
+      })
+      .catch(function (erro) {
+        console.error("Erro de rede no histórico: ", erro);
+      });
+    }
+
+     
+    function deslogar() {
+      sessionStorage.clear();
+      alert("Sessão encerrada com sucesso.");
+      window.location = "login.html";
+    }
+
+    function validarSessao() {
+      var email = sessionStorage.EMAIL_USUARIO;
+      var nome = sessionStorage.NOME_USUARIO;
+
+      var span_nome = document.getElementById("b_usuario");
+
+      if (span_nome != null) {
+        span_nome.innerHTML = nome;
+      }
+
+      if (email == null && nome == null) {
+        alert("Acesso negado! Por favor, faça login.");
+        window.location = "login.html";
+      }
+    }
+</script>
+</body>
+
+</html>

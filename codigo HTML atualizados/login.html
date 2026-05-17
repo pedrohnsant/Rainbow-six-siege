@@ -28,7 +28,7 @@
                     <a href="index.html">Inicio</a>
                 </li>
                 <li>
-                    <a href="simulador.html">Calculadora</a>
+                    <a href="guia.html">Guia de mapas</a>
                 </li>
                 <li>|</li>
                 <li class="agora">
@@ -62,7 +62,15 @@
                     </div>
                     <button class="botao" onclick="entrar()">Entrar</button>
                 </div>
-
+                <div class="link-cadastro" style="text-align: center; margin-top: 15px;">
+                    <p style="color: #888; font-size: 14px; font-family: 'Segoe UI', sans-serif;">
+                        Não tem uma conta?
+                        <a href="cadastro.html"
+                            style="color: #ffaa00; text-decoration: none; font-weight: bold; transition: color 0.2s;">
+                            Cadastre-se aqui
+                        </a>
+                    </p>
+                </div>
                 <div id="div_aguardar" class="loading-div">
                     <img src="./assets/gifrodando.gif" id="loading-gif">
                 </div>
@@ -95,8 +103,8 @@
 
             <div class="footer-right">
                 <div class="social-icons">
-                    <img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Instagram">
-                    <img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Discord">
+                    <a href="https://discord.gg/qZBNemHW " ><img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Discord" ></a> 
+         <a href="https://www.instagram.com/r6forum/?utm_source=ig_web_button_share_sheet"><img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Instagram"></a>
                 </div>
             </div>
         </div>
@@ -108,54 +116,43 @@
 </html>
 
 <script>
-
-    listaUsuarios = []
     function entrar() {
-        aguardar();
+        aguardar();  
 
         var emailVar = email_input.value;
-        var senhaVar = senha_input.value;
-        email_input.value = ''
+        var senhaVar = senha_input.value
         senha_input.value = ''
+        email_input.value = ''
 
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            mensagem_erro.innerHTML = "Preencha todos os campos para prosseguir.";
             finalizarAguardar();
             return false;
-        }
-        else {
+        } else {
             setInterval(sumirMensagem, 5000)
         }
 
-        // 1. Buscar a lista que foi salva no Cadastro
-        // O JSON.parse transforma o texto do sessionStorage de volta em um Vetor (Array)
+         
+        var listaUsuarios = JSON.parse(sessionStorage.getItem("usuariosCadastrados") || "[]");
+        var encontradoNoVetor = false;
 
-         var listaUsuarios = JSON.parse(sessionStorage.getItem("usuariosCadastrados") || "[]");
-         var encontradoNoVetor = false;
-
-        // 2. O FOR: percorrer o vetor para verificar se o e-mail e senha existem
         for (var i = 0; i < listaUsuarios.length; i++) {
             var usuarioAtual = listaUsuarios[i];
-
             if (usuarioAtual.email == emailVar && usuarioAtual.senha == senhaVar) {
                 encontradoNoVetor = true;
                 console.log("Usuário encontrado no vetor local: ", usuarioAtual.nome);
-                break; // Se achou, para o loop
+                break;
             }
         }
 
-        // 3. Validação do resultado do FOR
         if (encontradoNoVetor) {
-            console.log("Sucesso no vetor! Prosseguindo com a autenticação no banco...");
+            console.log("Sucesso no vetor! Prosseguindo com a autenticação no servidor...");
         } else {
             console.log("Usuário não está no vetor local. Verificando no banco de dados...");
         }
 
-
-        console.log("FORM LOGIN: ", emailVar);
-        console.log("FORM SENHA: ", senhaVar);
-
+        
         fetch("/usuarios/autenticar", {
             method: "POST",
             headers: {
@@ -166,37 +163,33 @@
                 senhaServer: senhaVar
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
             if (resposta.ok) {
-                console.log(resposta);
+                console.log("Login realizado com sucesso!");
 
                 resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
+                     
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
                     sessionStorage.ID_USUARIO = json.id;
-                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
 
+                    // 3. Redirecionamento 
                     setTimeout(function () {
-                        window.location = "index.html";
-                    }, 1000); // apenas para exibir o loading
-
+                        window.location = "Dashboard.html";  
+                    }, 1000);
                 });
 
             } else {
-
                 console.log("Houve um erro ao tentar realizar o login!");
-
                 resposta.text().then(texto => {
-                    console.error(texto);
+                    cardErro.style.display = "block";
+                    mensagem_erro.innerHTML = "E-mail ou senha inválidos!";
                     finalizarAguardar(texto);
                 });
             }
 
         }).catch(function (erro) {
-            console.log(erro);
+            console.log("Erro de conexão:", erro);
+            finalizarAguardar();
         })
 
         return false;
@@ -205,5 +198,4 @@
     function sumirMensagem() {
         cardErro.style.display = "none"
     }
-
 </script>
