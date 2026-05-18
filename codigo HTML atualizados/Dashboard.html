@@ -117,7 +117,7 @@
     </table>
   </div>
 </body>
-  <!-- 4. FOOTER -->
+   
   <div class="footer">
     <div class="container footer-layout">
       <div class="footer-left">
@@ -129,7 +129,7 @@
           proprietários. Materiais de jogo copyright Ubisoft.
         </p>
         <div class="links-rapidos">
-          <a href="sobrenos.html">Sobre nós</a>
+          <a href="sobrenos.html">Sobre o R6 FÓRUM</a>
         </div>
       </div>
       <div class="footer-right">
@@ -213,7 +213,7 @@
       });
     }
 
-    // --- FUNÇÃO PARA SALVAR NO BANCO DE DADOS ---
+     
     function salvarResultado() {
       var idUsuario = sessionStorage.ID_USUARIO;
       var vits = Number(input_vitorias.value);
@@ -244,7 +244,7 @@
         if (resposta.ok) {
           alert("Dados salvos com sucesso!");
           
-          // AJUSTADO: Recarrega a tabela na hora que salva um novo resultado
+           
           carregarHistoricoMensal(); 
         } else {
           alert("Erro ao tentar salvar os dados.");
@@ -253,8 +253,6 @@
         console.log(`#ERRO: ${erro}`);
       });
     }
-
-    // --- ADICIONADO: FUNÇÃO PARA PUXAR O HISTÓRICO MENSAL DO BANCO ---
     function carregarHistoricoMensal() {
       var idUsuario = sessionStorage.ID_USUARIO;
 

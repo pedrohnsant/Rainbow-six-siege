@@ -66,7 +66,7 @@
                     responsável por este site ou seu conteúdo.
                 </p>
                 <div class="links-rapidos">
-                    <a href="sobrenos.html">Sobre nós</a>
+                    <a href="sobrenos.html">Sobre o R6 FÓRUM</a>
                 </div>
             </div>
 
@@ -79,7 +79,7 @@
         </div>
     </div>
     <script>
-        // Variável global  
+        
         var listaMapas = [
             { id: 1, nome: "Clube", pais: "Alemanha", img: "clubhouse.jpg" },
             { id: 2, nome: "Oregon", pais: "Estados Unidos", img: "oregon.jpg" },
@@ -104,12 +104,12 @@
             var idUsuario = sessionStorage.ID_USUARIO;
             var nomeUsuario = sessionStorage.NOME_USUARIO;
 
-            // Se as variáveis de sessão não existirem, barra  imediatamente
+             
             if (idUsuario == undefined || nomeUsuario == undefined) {
                 alert("Área restrita! Por favor, faça o login para acessar o Briefing de Mapas.");
                 window.location = "login.html";
             } else {
-                // Puxa o nome  
+                 
                 document.getElementById("b_usuario").innerHTML = nomeUsuario.toUpperCase();
             }
         }
@@ -155,7 +155,7 @@
             `;
             }
 
-            //  Assim que desenha os cards, busca os dados reais das porcentagens no banco
+             
             atualizarVotosBanco();
         }
 
@@ -181,7 +181,7 @@
                                 document.getElementById(`txt_ban_${m.id}`).innerHTML = "0%";
                             }
 
-                            // Aplica os valores vindos do banco de dados nos mapas correspondentes
+                             
                             for (var i = 0; i < dadosBanco.length; i++) {
                                 var registro = dadosBanco[i];
 
@@ -191,7 +191,7 @@
                                 var elementoTxtBan = document.getElementById(`txt_ban_${registro.fkMapa}`);
 
                                 if (elementoBarraFav && elementoBarraBan) {
-                                    // Se o valor do banco vier nulo por falta de votos, garante que exiba 0
+                                     
                                     var favPorcentagem = registro.porcentagemFavorito || 0;
                                     var banPorcentagem = registro.porcentagemBan || 0;
 
@@ -246,8 +246,7 @@
             })
                 .then(function (resposta) {
                     if (resposta.ok) {
-                        alert(`Voto de ${tipoVoto} computado com sucesso!`);
-                        // Recarrega as barras imediatamente após o clique bem-sucedido
+                        
                         atualizarVotosBanco();
                     } else {
                         resposta.text().then(function (textoErro) {
