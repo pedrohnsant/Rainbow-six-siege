@@ -131,9 +131,16 @@
             return false;
         } else {
             setInterval(sumirMensagem, 5000)
-        }
-
-         
+        } 
+        if (!emailVar.includes("@") || !emailVar.includes(".")) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "O e-mail deve conter '@' e '.' ";
+            finalizarAguardar();
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000)
+        } 
+        
         var listaUsuarios = JSON.parse(sessionStorage.getItem("usuariosCadastrados") || "[]");
         var encontradoNoVetor = false;
 
