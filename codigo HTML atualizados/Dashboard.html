@@ -59,9 +59,9 @@
         <p>Total de Partidas Vencidas:</p>
         <input type="number" id="input_vitorias" placeholder="Ex: 50">
 
-        <button onclick="calcularWinRate()">Calcular Performance</button>
+        <button onclick="obterDadosGrafico()">Calcular Performance</button>
 
-        <button id="btn_salvar" onclick="salvarResultado()"
+        <button id="btn_salvar" onclick="carregarHistoricoMensal()()"
           style="display: none; background-color: #4caf50; margin-top: 10px;">
           Salvar no Histórico
         </button>
@@ -141,10 +141,10 @@
     </div>
   </div>
 
-  <script>
+ <script>
     var meuGrafico;
 
-    function calcularWinRate() {
+    function obterDadosGrafico() {
       var totalPartidas = Number(input_total.value);
       var vitorias = Number(input_vitorias.value);
 
@@ -158,10 +158,10 @@
       }
 
       document.getElementById("btn_salvar").style.display = "block";
-      exibirDashboard(vitorias, totalPartidas);
+      plotarGrafico(vitorias, totalPartidas);
     }
 
-    function exibirDashboard(vitorias, total) {
+    function plotarGrafico(vitorias, total) {
       var derrotas = total - vitorias;
       var pctVitoria = total > 0 ? ((vitorias / total) * 100).toFixed(1) : 0;
       var pctDerrota = total > 0 ? (100 - pctVitoria).toFixed(1) : 100;
@@ -214,7 +214,7 @@
     }
 
      
-    function salvarResultado() {
+    function carregarHistoricoMensal() {
       var idUsuario = sessionStorage.ID_USUARIO;
       var vits = Number(input_vitorias.value);
       var total = Number(input_total.value);
@@ -245,7 +245,7 @@
           alert("Dados salvos com sucesso!");
           
            
-          carregarHistoricoMensal(); 
+          carregarHistoricoMensalSuporte(); 
         } else {
           alert("Erro ao tentar salvar os dados.");
         }
@@ -253,7 +253,7 @@
         console.log(`#ERRO: ${erro}`);
       });
     }
-    function carregarHistoricoMensal() {
+    function carregarHistoricoMensalSuporte() {
       var idUsuario = sessionStorage.ID_USUARIO;
 
       if (!idUsuario) return;
