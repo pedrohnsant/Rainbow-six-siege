@@ -142,6 +142,13 @@
       mensagem_erro.innerHTML = "As senhas não coincidem!";
       return false;
     }
+     if (!emailVar.includes("@") || !emailVar.includes(".")) {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "O e-mail deve conter '@' e '.' ";
+            return false;
+        } else {
+            setInterval(sumirMensagem, 5000)
+        } 
 
      
     let novoUsuario = {
