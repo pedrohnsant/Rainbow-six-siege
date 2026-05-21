@@ -18,7 +18,7 @@ O **R6 Fórum** é uma aplicação web Full-Stack desenvolvida para mitigar a co
 ## 🛠️ Stack Tecnológica
 
 | Camada | Tecnologia | Descrição |
- --|--|--|--|--|--|--|--|--|--|--|--|
+| :--- | :--- | :--- |
 | **Front-End** | HTML5, CSS, JavaScript   | Estruturação, estilização moderna e lógica. |
 | **Gráficos** | Chart.js | Renderização  do gráfico. |
 | **Back-End** | Node.js, Express | Criação de APIs. |
