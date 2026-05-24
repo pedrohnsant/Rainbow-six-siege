@@ -8,21 +8,18 @@
 
   <title>R6 Fórum | Dashboard</title>
 
-   
+  <link rel="stylesheet" href="/estilo.css">
+  <link rel="icon" href="/logor6.png">
+  <script src="/sessao.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="./js/sessao.js"></script>
-
-  <link rel="stylesheet" href="./css/estilo.css" />
-  <link rel="icon" href="assets/logor6.png" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="validarSessao(); exibirDashboard(0, 0); carregarHistoricoMensal();">
+<body onload="validarSessao(); exibirDashboard(0, 0); carregarHistoricoMensalSuporte();">
 
   <div class="header">
     <div class="container">
       <h2 class="titulo"> <span>R6 Fórum</span> <br> <b>Sua performance não é sorte, são dados! </b></h2>
-      <img class="logo-central" src="assets/logor6.png" alt="">
+      <img class="logo-central" src="/logor6.png">
       <ul class="navbar">
         <li><a href="./index.html">Inicio</a></li>
         <li><a href="guia.html">Guia de mapas</a></li>
@@ -61,7 +58,7 @@
 
         <button onclick="obterDadosGrafico()">Calcular Performance</button>
 
-        <button id="btn_salvar" onclick="carregarHistoricoMensal()()"
+        <button id="btn_salvar" onclick="carregarHistoricoMensal()"
           style="display: none; background-color: #4caf50; margin-top: 10px;">
           Salvar no Histórico
         </button>
@@ -91,7 +88,7 @@
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 
   <div class="secao-historico" style="margin: 40px auto; padding: 20px; max-width: 1200px; box-sizing: border-box;">
     <h3 style="color: var(--r6-gold); text-transform: uppercase; letter-spacing: 1px; font-family: 'Segoe UI', sans-serif; margin-bottom: 15px; border-left: 4px solid var(--r6-gold); padding-left: 10px;">
@@ -116,33 +113,14 @@
         </tbody>
     </table>
   </div>
-</body>
-   
-  <div class="footer">
-    <div class="container footer-layout">
-      <div class="footer-left">
-        <p>2026 &copy; R6 Fórum. Todos os direitos reservados.</p>
-      </div>
-      <div class="footer-center">
-        <p class="ubisoft-text">
-          Rainbow Six: Siege é uma marca registrada da Ubisoft. As marcas comerciais são propriedade de seus respectivos
-          proprietários. Materiais de jogo copyright Ubisoft.
-        </p>
-        <div class="links-rapidos">
-          <a href="sobrenos.html">Sobre o R6 FÓRUM</a>
-        </div>
-      </div>
-      <div class="footer-right">
-        <div class="social-icons">
-          <a href="https://discord.gg/qZBNemHW " ><img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Discord" ></a> 
-         <a href="https://www.instagram.com/r6forum/?utm_source=ig_web_button_share_sheet"><img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Instagram"></a>
-        </div>
-      </div>
-    </div>
-  </div>
 
- <script>
+  <script>
     var meuGrafico;
+
+    // Corrigido: função que estava sendo chamada no onload mas não existia
+    function exibirDashboard(vitorias, total) {
+      plotarGrafico(vitorias, total);
+    }
 
     function obterDadosGrafico() {
       var totalPartidas = Number(input_total.value);
@@ -213,7 +191,6 @@
       });
     }
 
-     
     function carregarHistoricoMensal() {
       var idUsuario = sessionStorage.ID_USUARIO;
       var vits = Number(input_vitorias.value);
@@ -243,9 +220,7 @@
       }).then(function (resposta) {
         if (resposta.ok) {
           alert("Dados salvos com sucesso!");
-          
-           
-          carregarHistoricoMensalSuporte(); 
+          carregarHistoricoMensalSuporte();
         } else {
           alert("Erro ao tentar salvar os dados.");
         }
@@ -253,6 +228,7 @@
         console.log(`#ERRO: ${erro}`);
       });
     }
+
     function carregarHistoricoMensalSuporte() {
       var idUsuario = sessionStorage.ID_USUARIO;
 
@@ -275,7 +251,7 @@
 
           resposta.json().then(function (historico) {
             var tabelaCorpo = document.getElementById("tabela_historico_corpo");
-            tabelaCorpo.innerHTML = ""; 
+            tabelaCorpo.innerHTML = "";
 
             for (var i = 0; i < historico.length; i++) {
               var linhaAtual = historico[i];
@@ -301,7 +277,6 @@
       });
     }
 
-     
     function deslogar() {
       sessionStorage.clear();
       alert("Sessão encerrada com sucesso.");
@@ -323,7 +298,30 @@
         window.location = "login.html";
       }
     }
-</script>
-</body>
+  </script>
 
+  <div class="footer">
+    <div class="container footer-layout">
+      <div class="footer-left">
+        <p>2026 &copy; R6 Fórum. Todos os direitos reservados.</p>
+      </div>
+      <div class="footer-center">
+        <p class="ubisoft-text">
+          Rainbow Six: Siege é uma marca registrada da Ubisoft. As marcas comerciais são propriedade de seus respectivos
+          proprietários. Materiais de jogo copyright Ubisoft.
+        </p>
+        <div class="links-rapidos">
+          <a href="sobrenos.html">Sobre o R6 FÓRUM</a>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="social-icons">
+          <a href="https://discord.gg/qZBNemHW"><img src="https://cdn-icons-png.flaticon.com/128/5968/5968756.png" alt="Discord"></a>
+          <a href="https://www.instagram.com/r6forum/?utm_source=ig_web_button_share_sheet"><img src="https://cdn-icons-png.flaticon.com/128/174/174855.png" alt="Instagram"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
 </html>

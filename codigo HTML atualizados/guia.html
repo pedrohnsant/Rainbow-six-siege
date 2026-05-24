@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>R6 Fórum | Briefing de Mapas</title>
 
-    <link rel="stylesheet" href="./css/estilo.css">
-    <link rel="icon" href="assets/logor6.png">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="/estilo.css">
+    <link rel="icon" href="/logor6.png">
+    <script src="/sessao.js"></script>
 </head>
 
 <body onload="  validarSessao();    carregarMapasNaTela()">
@@ -17,7 +17,7 @@
     <div class="header">
         <div class="container">
             <h2 class="titulo"> <span>R6 Fórum</span> <br> <b>Sua performance não é sorte, são dados! </b></h2>
-            <img class="logo-central" src="assets/logor6.png" alt="">
+            <img class="logo-central" src="/logor6.png">
             <ul class="navbar">
                 <li><a href="./index.html">Inicio</a></li>
                 <li class="agora">Guia de mapas</li>
@@ -79,37 +79,36 @@
         </div>
     </div>
     <script>
-        
-        var listaMapas = [
-            { id: 1, nome: "Clube", pais: "Alemanha", img: "clubhouse.jpg" },
-            { id: 2, nome: "Oregon", pais: "Estados Unidos", img: "oregon.jpg" },
-            { id: 3, nome: "Chalé", pais: "França", img: "chalet.jpg" },
-            { id: 4, nome: "Consulado", pais: "França", img: "consulado.jpg" },
-            { id: 5, nome: "Banco", pais: "Estados Unidos", img: "banco.jpg" },
-            { id: 6, nome: "Canal", pais: "Alemanha", img: "canal.jpg" },
-            { id: 7, nome: "Litoral", pais: "Espanha", img: "litoral.jpg" },
-            { id: 8, nome: "Café Dostoyevsky", pais: "Rússia", img: "cafe.jpg" },
-            { id: 9, nome: "Parque Temático", pais: "Hong Kong", img: "parque.jpg" },
-            { id: 10, nome: "Fronteira", pais: "Oriente Médio", img: "fronteira.jpg" },
-            { id: 11, nome: "Outback", pais: "Austrália", img: "outback.jpg" },
-            { id: 12, nome: "Arranha-céu", pais: "Japão", img: "arranha.jpg" },
-            { id: 13, nome: "Fortaleza", pais: "Itália", img: "fortaleza.jpg" },
-            { id: 14, nome: "Villa", pais: "Irlanda", img: "vila.jpg" },
-            { id: 15, nome: "Laboratório Nighthaven", pais: "Cingapura", img: "laboratorio.jpg" },
-            { id: 16, nome: "Covil", pais: "Portugal", img: "covil.jpg" },
 
+        var listaMapas = [
+            { id: 1, nome: "Clube", pais: "Alemanha", img: "/clubhouse.jpg" },
+            { id: 2, nome: "Oregon", pais: "Estados Unidos", img: "/oregon.jpg" },
+            { id: 3, nome: "Chalé", pais: "França", img: "/chalet.jpg" },
+            { id: 4, nome: "Consulado", pais: "França", img: "/consulado.jpg" },
+            { id: 5, nome: "Banco", pais: "Estados Unidos", img: "/banco.jpg" },
+            { id: 6, nome: "Canal", pais: "Alemanha", img: "/canal.jpg" },
+            { id: 7, nome: "Litoral", pais: "Espanha", img: "/litoral.jpg" },
+            { id: 8, nome: "Café Dostoyevsky", pais: "Rússia", img: "/cafe.jpg" },
+            { id: 9, nome: "Parque Temático", pais: "Hong Kong", img: "/parque.jpg" },
+            { id: 10, nome: "Fronteira", pais: "Oriente Médio", img: "/fronteira.jpg" },
+            { id: 11, nome: "Outback", pais: "Austrália", img: "/outback.jpg" },
+            { id: 12, nome: "Arranha-céu", pais: "Japão", img: "/arranha.jpg" },
+            { id: 13, nome: "Fortaleza", pais: "Itália", img: "/fortaleza.jpg" },
+            { id: 14, nome: "Villa", pais: "Irlanda", img: "/vila.jpg" },
+            { id: 15, nome: "Laboratório Nighthaven", pais: "Cingapura", img: "/laboratorio.jpg" },
+            { id: 16, nome: "Covil", pais: "Portugal", img: "/covil.jpg" },
         ];
 
         function validarSessao() {
             var idUsuario = sessionStorage.ID_USUARIO;
             var nomeUsuario = sessionStorage.NOME_USUARIO;
 
-             
+
             if (idUsuario == undefined || nomeUsuario == undefined) {
                 alert("Área restrita! Por favor, faça o login para acessar o Briefing de Mapas.");
                 window.location = "login.html";
             } else {
-                 
+
                 document.getElementById("b_usuario").innerHTML = nomeUsuario.toUpperCase();
             }
         }
@@ -121,10 +120,10 @@
             for (var i = 0; i < listaMapas.length; i++) {
                 var mapaAtual = listaMapas[i];
 
-                 
+
                 containerGrid.innerHTML += `
                 <div class="card-mapa">
-                    <div class="mapa-img" style="background-image: url('assets/${mapaAtual.img}');"></div>
+                    <div class="mapa-img" style="background-image: url('${mapaAtual.img}');"></div>
                     <div class="mapa-info">
                         <h3>${mapaAtual.nome}</h3>
                         <p class="regiao">Região: ${mapaAtual.pais}</p>
@@ -155,11 +154,11 @@
             `;
             }
 
-             
+
             atualizarVotosBanco();
         }
 
-        
+
         function atualizarVotosBanco() {
             fetch("/mapas/votos", {
                 method: "GET",
@@ -172,7 +171,7 @@
                         resposta.json().then(function (dadosBanco) {
                             console.log("Dados reais do banco recebidos: ", JSON.stringify(dadosBanco));
 
-                            
+
                             for (var i = 0; i < listaMapas.length; i++) {
                                 var m = listaMapas[i];
                                 document.getElementById(`barra_fav_${m.id}`).style.width = "0%";
@@ -181,7 +180,7 @@
                                 document.getElementById(`txt_ban_${m.id}`).innerHTML = "0%";
                             }
 
-                             
+
                             for (var i = 0; i < dadosBanco.length; i++) {
                                 var registro = dadosBanco[i];
 
@@ -191,7 +190,7 @@
                                 var elementoTxtBan = document.getElementById(`txt_ban_${registro.fkMapa}`);
 
                                 if (elementoBarraFav && elementoBarraBan) {
-                                     
+
                                     var favPorcentagem = registro.porcentagemFavorito || 0;
                                     var banPorcentagem = registro.porcentagemBan || 0;
 
@@ -246,7 +245,7 @@
             })
                 .then(function (resposta) {
                     if (resposta.ok) {
-                        
+
                         atualizarVotosBanco();
                     } else {
                         resposta.text().then(function (textoErro) {
