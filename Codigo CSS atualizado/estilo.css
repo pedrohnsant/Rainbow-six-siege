@@ -80,8 +80,8 @@ body {
 /* BANNER */
 
 .banner {
-  background: linear-gradient(to right, rgba(11, 15, 20, 0.9) 20%, rgba(11, 15, 20, 0) 70%),
-    url('../assets/rainbow-six-siege-27b2k2cr473rb17g.jpg');
+ background: linear-gradient(to right, rgba(11, 15, 20, 0.9) 20%, rgba(11, 15, 20, 0) 70%),
+    url('/fundo.jpg');
   background-size: 100%;
   background-position: center 22%;
   height: 690px;
