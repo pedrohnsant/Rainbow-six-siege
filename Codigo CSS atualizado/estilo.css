@@ -1170,6 +1170,16 @@ button:disabled {
   color: var(--r6-gold);
 }
 
+.legenda {
+  text-align: center;
+  width: 100%;
+  color: #888888;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 35px;
+}
+
 .graph-area {
   width: 100%;
   max-width: 500px;
