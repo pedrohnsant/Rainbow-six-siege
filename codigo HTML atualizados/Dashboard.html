@@ -79,7 +79,12 @@
         <span id="kpi_aviso">Aguardando dados...</span>
       </div>
     </div>
-
+    <div class="legenda">
+          <p style="margin-bottom: 5px; font-weight: bold; color: #ffffff;">Definição de avisos:</p>
+          <span>Bom trabalho: Estatísticas ótimas!</span> |
+          <span>Atenção: Ponto a melhorar!</span> |
+          <span>Precisa melhorar: Métricas ruins!</span>
+        </div>
     <div class="graph-area">
       <div class="graph-container">
         <h3>Distribuição de Win Rate (%)</h3>
@@ -117,11 +122,11 @@
   <script>
     var meuGrafico;
 
-    // Corrigido: função que estava sendo chamada no onload mas não existia
+     
     function exibirDashboard(vitorias, total) {
       plotarGrafico(vitorias, total);
     }
-
+    // realizar calculos e validações
     function obterDadosGrafico() {
       var totalPartidas = Number(input_total.value);
       var vitorias = Number(input_vitorias.value);
@@ -139,6 +144,7 @@
       plotarGrafico(vitorias, totalPartidas);
     }
 
+    // função para inserir os dados no grafico
     function plotarGrafico(vitorias, total) {
       var derrotas = total - vitorias;
       var pctVitoria = total > 0 ? ((vitorias / total) * 100).toFixed(1) : 0;
