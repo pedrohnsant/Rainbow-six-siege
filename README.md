@@ -15,7 +15,7 @@ O **R6 Fórum** é uma aplicação web Full-Stack desenvolvida para mitigar a co
 * **Guia de Mapas:** Votação da comunidade com todos os mapas do modo rankeado para saber a opinião da comunidade sobre aquele determinado mapa!
 ---
 
-## 🛠️ Stack Tecnológica
+## Stack Tecnológica
 
 | Camada | Tecnologia | Descrição |
 | :--- | :--- | :--- |
